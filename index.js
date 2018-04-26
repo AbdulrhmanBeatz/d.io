@@ -1427,4 +1427,4 @@ if(!men) { // اذا لم يكن هناك منشن
 
 });
 
-client.login(process.env,BOT_TOKEN); 
+client.login(process.env.BOT_TOKEN); 
