@@ -128,69 +128,75 @@ if(message.content === '-<back') {
 //help-ar
           client.on('message', message => {
             if(message.content == prefix + 'help-ar') {
-              const embed = new Discord.RichEmbed()
-              .setColor("RANDOM")
-              .setAuthor(message.author.username ,message.author.avatarURL)
-              .setTitle("__اوامر البوت__")
-              .addField('**-<bc**' , '**لنشر رساله الى جميع الاعضاء المتواجدين**')
-              .addField('**-<ping**' , '**لرؤيه سرعة اتصال البوت في الخادم**')
-              .addField('**-<kick**' , '**لطرد اي شخص من السيرفر**')
-              .addField('**-<server**','**لرؤيه حالة السيرفر**')
-              .addField('**-<clear**','**لحذف الشات**')
-              .addField('**-<add.r**','**لأضافة رتبة للسيرفر**')
-              .addField('**-<avatar**','**لأرساله صوره شخص محدد -<avatar @Tornado#0607**')
-              .addField('**-<id**','**لعرض بيانات العضو**')
-              .addField('**-<roles**','**لرؤية جميع الرتب المتواجده في السيرفر**')
-              .addField('**-<about**','**لرؤية بعض الامور عن البوت**')
-              .addField('**-<mute**','**لاعطاء الشخص ميوت كتابي**')
-              .addField('**-<unmute**','**لرفع الميوت الكتابي عن شخص**')
-              .addField('**-<add.v**','**لأنشاء روم صوتي**')
-              .addField('**-<add.t**','**لأنشاء روم كتابي**')
-              .addField('**-<roleadd**','**لأعطاء لشخص رتبة**')
-              .addField('**-<roledel**','**لحذف الرتبة من شخص **')
-              .addField('**-<botsg**','**يتيح للمستخدم ارسال رسائل خاصه مباشره لصاحب البوت**')
-              .addField('**-<discrim**','**لرؤيه عدد الاعضاء الذين يمتلكون نفس التاق الخاص بك**')
-              .addField('**-<embed**','**لكتابة ما تقوله بصيغة الامبيد**')
-              .addField('**-<draw**','**يكتب ما تقوله في صوره**')
-              .addField('**-<games**','**قائمة الالعاب**')
-              .addField('**-<autorole**','**لتغير الرتبة التلقائيه في السيرفر**')
-                   message.author.sendEmbed(embed)
-                   message.reply('Check In DM :mailbox_with_mail:').then(message => {message.delete(10000)});
-            }
+                   message.channel.sendEmbed(`__**أوامر أدارية**__:
+*قد تحتاج صلاحيا للقيام بهم
+**-<kick**: طرد عضو من السيرفر
+**-<clear**: حذف المحادثة
+**-<add.r**: أنشاء رتبة
+**-<add.t**: أنشاء قناة كتابية
+**-<add.v**: أنشاء قناة صوتية
+**-<mute**: أسكات عضو
+**-<unmute**: أزالة الأسكات عن عضو
+**-<roleadd**: لمنح ربتة لأحدهم
+**-<roledel**: لأزالة رتب’ من احده
+**-<autorole**: تغير الرتبة التلقائية
+
+__**أوامر الألعاب**__
+**-<فكك**: لعبة تأتيك بعدة كلمات ويطلب منك تحويلها الى احرف
+**-<عواصم**: لعبة تعطيك اسماء دول ويطلب منك ان تأتي باسم عاصمتها
+
+__**Other Commands**__
+**-<ping**: لرؤية مدى سرعة اتصال البوت في الخوادم الرئيسة
+**-<member**:  لرؤية حالة الأعضاء
+**-<server**: حالة السيرفر
+**-<avatar**: أضهار صورة احدهم عند أدراج اسمه
+**-<id**: هوية اللاعب الأفتراضيه
+**-<roles**:لرؤية مجموع التب في السيرفر
+**-<botsg**: لأرسال اقتراحات او شكاوي ألى صاحب البوت <@298732816995319809> 
+**-<say**: يكرر ما تقول
+**-<embed**: يكرر ما تقول في مربع النص
+**-<draw**: يكرر ما تقول في صورة
+**-<discrim**: للتحقق في حال وجود أعضاء بنفس الرمز التعريفي (TAG) في السيرفر
+**-<myid**: يرسل الرقم التعريفي الخاص بك في رساله
+__**سيرفر الدعم**__: https://discord.gg/B24596V
+__**ادعو البوت**__: https://goo.gl/8NYBav`)
+	    }
           });
 
 //help-en
           client.on('message', message => {
             if(message.content == prefix + 'help-en') {
-              const embed = new Discord.RichEmbed()
-              .setColor("RANDOM")
-              .setAuthor(message.author.username ,message.author.avatarURL)
-              .setTitle("__Bot Commands__")
-              .addField('**-<bc**' , '**To send message in DM to everyone in the server**')
-              .addField('**-<ping**' , '**To how bot connection speed**')
-              .addField('**-<kick**' , '**Kick someone from sever**')
-              .addField('**-<member**','**TO see members status**')
-              .addField('**-<server**','**Server info**')
-              .addField('**-<clear**','**Clear chat (Max:50)**')
-              .addField('**-<add.r**','**Create a role**')
-              .addField('**-<avatar**','**To see member avatar by mention him -<avatar @Tornado#0607**')
-              .addField('**-<id**','**member status**')
-              .addField('**-<roles**','**To see every role in the server**')
-              .addField('**-<mute**','**To mute someone from chat**')
-              .addField('**-<unmute**','**To unmute someone from chat**')
-              .addField('**-<voice set**','**Members in voice counter**')
-                .addField('**-<add.t**','**Create a text channel**')
-                .addField('**-<add.v**','**Create a Voice Channel**')
-                .addField('**-<roleadd**','**Give someone a role**')
-                .addField('**-<roledel**','**Remove a role from someone**')
-                .addField('**-<botsg**','**let you send a messages directly to bot owner (Creator)**')
-                .addField('**-<discrim**','**to see how much members have same tag**')
-                .addField('**-<embed**','**To write to do you say in embed**')
-                .addField('**-<draw**','**Rewrite what do you say in a image**')
-                .addField('**-<games**','**-<games menu**')
-                .addField('**-<autorole**','**To change server’s autorole**')
-                   message.author.sendEmbed(embed)
-                   message.reply('Check In DM :mailbox_with_mail:').then(message => {message.delete(10000)});
+                   message.channel.sendEmbed(`__**Adminstartion Commands**__:
+You need permissions to do this commands
+**-<kick**: Kick Someone from the server
+**-<clear**: Clear the chat
+**-<add.r**: Create a role
+**-<add.t**: Create a Text Channel
+**-<add.v**: Create a Voice Channel
+**-<mute**: Mute Someone
+**-<unmute**: UnMute Someone
+**-<roleadd**: Give Someone a role
+**-<roledel**: Remove a role from Someone
+**-<autorole**: Change the Autorole
+
+__**Games Commands**__        
+**No Games For Now**
+
+__**Other Commands**__
+**-<ping**: See how fast the bot connect to servers
+**-<member**: To See members status (DND,Online...)
+**-<server**: Server info
+**-<avatar**: Make the bot send a profile image of Someone
+**-<id**: Members Profile
+**-<roles**: To see roles in the server
+**-<botsg**: Send your Suggstion to Bot Owner <@298732816995319809> 
+**-<say**: Repeat what do you say
+**-<embed**: Repeat what do you say in embed
+**-<draw**: Repeat what do you say in a picture
+**-<discrim**: Check who has the same tag that you have in the server
+**-<myid**: Send your own ID in a message
+__**Support Server**__: https://discord.gg/JGSEYj
+__**Invite me**__: https://goo.gl/8NYBav`)
             }
           });  
           
