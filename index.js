@@ -1703,7 +1703,7 @@ if(message.content.startsWith(prefix + 'trans')) {
             let defineduser = '';
             let firstMentioned = message.mentions.users.first();
             defineduser = (firstMentioned)
-            if (!defineduser) return message.channel.send(`**Usage**: -<trans <amount> <someone>);
+            if (!defineduser) return message.channel.send(`**Usage**: -<trans <amount> <someone>`);
             var mentionned = message.mentions.users.first();
 if (!userData[sender.id]) userData[sender.id] = {}
 if (!userData[sender.id].money) userData[sender.id].money = 200;
@@ -1723,7 +1723,7 @@ if(message.content.startsWith(prefix + 'daily')) {
 if (userData[sender.id].lastDaily != moment().format('6800000')) {
     userData[sender.id].lastDaily = moment().format('6800000')
     userData[sender.id].money += 200; 
-    message.channel.send(`**${message.author.username} you collect your \`200\` :dollar: daily pounds**`)
+    message.channel.send(`${message.author.username} you collect your **200** :dollar: daily pounds`)
 } else {
     message.channel.send('**your next Daily :moneybag: : ' + moment().endOf('6800000').fromNow()  + '.**')
 }
