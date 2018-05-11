@@ -1026,17 +1026,9 @@ const w = ['./blue.png','./gray.png','./image.png'];
                 jimp.read(url, (err, ava) => {
                     if (err) return console.log(err);
                     ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
-                        if (err) return console.log(err);
-                                                //wl
-                       ctx.font = '35   Aeland Bold';
-                        ctx.fontSiz.slice(1).join(' ')
-                        ctx.fillSty
+                 if (err) return console.log(err);
+                    
 
-                        //ur name
-                        ctx.font = '40px Impact';
-                        ctx.fontSize = '48px';
-                        ctx.fillStyle = "#FFFFFF";
-                        ctx.textAlign = "center";
                         ctx.fillText(member.user.username, 420, 100);
 
                          ctx.font = '30px Impact';
