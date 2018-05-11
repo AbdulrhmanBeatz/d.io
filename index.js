@@ -47,7 +47,7 @@ if(message.content === '-<back') {
               if (message.content === prefix + "ping") {
                   const embed = new Discord.RichEmbed()
             .setColor("RANDOM")
-            .addField('**Ping:**' , `${Date.now() - message.createdTimestamp}` + ' ms')
+            .addField('**Pong:**' , `${Date.now() - message.createdTimestamp}` + ' ms')
             message.channel.sendEmbed(embed).then(message => {message.delete(10000)});
               }
             });
