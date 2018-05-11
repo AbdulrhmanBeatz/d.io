@@ -1504,14 +1504,14 @@ client.on("message",  message => {
     if(!command.startsWith(prefix)) return;
     
     var jimp = require('jimp')
-    const w = ['./images_profile/1.png',];
+    const w = ['./1.png',];
     if(command === prefix + 'profile') {
     let Canvas = require('canvas')
     let canvas = new Canvas(500, 500)
 
     let ctxx = canvas.getContext('3d')
     let Images = Canvas.Image
-    fs.readFile(__dirname + '/images_profile/1.png', function(err, picture) { 
+    fs.readFile(__dirname + '/1.png', function(err, picture) { 
       if (err) throw err
       var img = new Images
       img.onload = () => {
@@ -1522,7 +1522,7 @@ client.on("message",  message => {
      
     let ctx = canvas.getContext('2d')
     let Image = Canvas.Image
-    fs.readFile(__dirname + '/images_profile/background.png', function(err, picture) { 
+    fs.readFile(__dirname + '/background.png', function(err, picture) { 
     if (err) throw err
     var img = new Image
     img.onload = () => {
@@ -1578,7 +1578,7 @@ client.on("message",  message => {
                         ctx.drawImage(ava, 13, 60, 175, 175);
 
     setTimeout(function() {
-      fs.readFile(__dirname + '/images_profile/background.png', function(err, picture) {
+      fs.readFile(__dirname + '/background.png', function(err, picture) {
         if (err) throw err
         var img = new Image
         img.onload = () => {
