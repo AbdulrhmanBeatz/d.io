@@ -128,7 +128,7 @@ if(message.content === '-<back') {
 //help-ar
           client.on('message', message => {
             if(message.content == prefix + 'help-ar') {
-                   message.channel.sendEmbed(`__**أوامر أدارية**__:
+                   message.channel.send(`__**أوامر أدارية**__:
 *قد تحتاج صلاحيا للقيام بهم
 **-<kick**: طرد عضو من السيرفر
 **-<clear**: حذف المحادثة
@@ -166,7 +166,7 @@ __**ادعو البوت**__: https://goo.gl/8NYBav`)
 //help-en
           client.on('message', message => {
             if(message.content == prefix + 'help-en') {
-                   message.channel.sendEmbed(`__**Adminstartion Commands**__:
+                   message.channel.send(`__**Adminstartion Commands**__:
 You need permissions to do this commands
 **-<kick**: Kick Someone from the server
 **-<clear**: Clear the chat
