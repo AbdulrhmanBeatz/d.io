@@ -43,6 +43,56 @@ if(message.content === '-<back') {
  });
 
 
+client.on("message", message => {
+  if(message.author.id === '298732816995319809') {
+  if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
+	var args = message.content.split(' ').slice(1); 
+	var msg = message.content.toLowerCase();
+	if( !message.guild ) return;
+	if( !msg.startsWith( prefix + 'role' ) ) return;
+	if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
+		if( !args[0] ) return message.reply( '**:x: Mention someone please**' );
+		if( !args[1] ) return message.reply( '**:x: Please insert a name of tne role**' );
+		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
+		var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first(); 
+		if( !role1 ) return message.reply( '**:x: Please select a role**' );if( message.mentions.members.first() ){
+			message.mentions.members.first().removeRole( role1 );
+
+			return message.reply('**:white_check_mark: [ '+role1.name+' ] Was taken from [ '+args[0]+' ]**');
+		}
+		if( args[0].toLowerCase() == "all" ){
+			message.guild.members.forEach(m=>m.removeRole( role1 ))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] Was taken from everyone **');
+		} else if( args[0].toLowerCase() == "bots" ){
+			message.guild.members.filter(m=>m.user.bot).forEach(m=>m.removeRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] Was taken from the bots **');
+		} else if( args[0].toLowerCase() == "humans" ){
+			message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
+			return	message.reply('**:white_check_mark: [ '+role1.name+' ] Was taken from members**');
+		} 	
+	} else {
+		if( !args[0] ) return message.reply( '**:x: Please select someone to give him a role**' );
+		if( !args[1] ) return message.reply( '**:x: Please select a role  to give it to [ ' + args[0] + ' ] **' );
+		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
+		var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first(); 
+		if( !role1 ) return message.reply( '**:x: Please select a role **' );if( message.mentions.members.first() ){
+			message.mentions.members.first().addRole( role1 );
+			return message.reply('**:white_check_mark: [ '+role1.name+' ] Was given [ '+args[0]+' ] role  **');
+		}
+		if( args[0].toLowerCase() == "all" ){
+			message.guild.members.forEach(m=>m.addRole( role1 ))
+			return	message.reply('**:white_check_mark: Everyone were given  [ '+role1.name+' ] Role**');
+		} else if( args[0].toLowerCase() == "bots" ){
+			message.guild.members.filter(m=>m.user.bot).forEach(m=>m.addRole(role1))
+			return	message.reply('**:white_check_mark: Bots were given [ '+role1.name+' ] Role **');
+		} else if( args[0].toLowerCase() == "humans" ){
+			message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.addRole(role1))
+			return	message.reply('**:white_check_mark: Members were given [ '+role1.name+' ] Role **');
+		} 
+	} 
+  }
+});
+
 //ping
             client.on("message", message => {
               if (message.content === prefix + "ping") {
