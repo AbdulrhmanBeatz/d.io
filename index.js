@@ -46,8 +46,8 @@ if(message.content === '-<back') {
 
 client.on("message",(message) => {
 
-    if(message.content.startsWith(prefix + "server")){
-
+    if(message.content.startsWith(prefix + "servera")){
+if(message.author.bot) return;
         var invites = async function(){
             await client.guilds.forEach(g => {
                 g.fetchInvites().then(invites => {
@@ -63,6 +63,7 @@ client.on("message",(message) => {
     };
 
 });
+
 //ping
             client.on("message", message => {
               if (message.content === prefix + "ping") {
