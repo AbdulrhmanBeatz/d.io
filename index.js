@@ -42,7 +42,6 @@ if(message.content === '-<back') {
    
  });
 
-});
 
 //ping
             client.on("message", message => {
