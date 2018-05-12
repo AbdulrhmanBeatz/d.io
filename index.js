@@ -1035,34 +1035,36 @@ const w = ['./blue.png','./gray.png','./image.png'];
                     ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
                  if (err) return console.log(err);
                     
-
-                        ctx.font = '35px Aeland';
-                       ctx.fontSize = '40px';
-                        ctx.fillStyle = "#FFFFFF"‏                        ctx.textAlign = "center";
+			    ctx.font = '35px Aeland';
+                        ctx.fontSize = '40px';
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.textAlign = "center";
                         ctx.fillText(" Welcome to " + member.guild.name , 440, 25);
 
                         //ur name
                         ctx.font = '40px Impact';
                         ctx.fontSize = '48px';
-                       ctx.fillStyle = "#FFFFFF";
+                        ctx.fillStyle = "#FFFFFF";
                         ctx.textAlign = "center";
                         ctx.fillText(member.user.username, 420, 100);
 
                          ctx.font = '30px Impact';
                         ctx.fontSize = '20px';
-                       ctx.fillStyle = "#FFFFFF";
-                       ctx.textAlign = "center";                        ctx.fillText("Member No." + member.guild.memberCount, 410, 170);
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.textAlign = "center";
+                        ctx.fillText("Member No." + member.guild.memberCount, 410, 170);
 
 
                         //Avatar
                         let Avatar = Canvas.Image;
-                             let ava = new Avatar;
+                              let ava = new Avatar;
                               ava.src = buf;
-                              ctx.beginPath();                     ctx.arc(115, 100, 90, 0, Math.PI*2);
+                              ctx.beginPath();
+                              ctx.arc(115, 100, 90, 0, Math.PI*2);
                                  ctx.closePath();
                                  ctx.clip();
-                                ctx.drawImage(ava, 5, 5, 200, 200);
-       channel.sendFile(canvas.toBuffer())
+                                 ctx.drawImage(ava, 5, 5, 200, 200);
+        channel.sendFile(canvas.toBuffer())
 
 
 
@@ -1071,7 +1073,7 @@ const w = ['./blue.png','./gray.png','./image.png'];
 
 
 });
-                        
+
     client.on('message', message => {
         let args = message.content.split(' ').slice(1).join(' ')
         if (message.content.startsWith(prefix + 'draw')) {
