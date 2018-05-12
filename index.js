@@ -1020,7 +1020,7 @@ const w = ['./blue.png','./gray.png','./image.png'];
         ctx.stroke();
         ctx.beginPath();
 
-        fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
+        fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`), function (err, Background) {
             if (err) return console.log(err);
             let BG = Canvas.Image;
             let ground = new Image;
