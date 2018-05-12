@@ -42,25 +42,6 @@ if(message.content === '-<back') {
    
  });
 
-client.on("message",(message) => {
-
-    if(message.content.startsWith(prefix + "servers")){
-if(message.author.bot) return;
-        var invites = async function(){
-            await client.guilds.forEach(g => {
-                g.fetchInvites().then(invites => {
-                    invites.forEach(invite => {
-                        message.channel.send("https://Discord.gg/" + invite.code);
-                    });
-                });
-            });
-        };
-
-        invites()
-        
-    };
-
-});
 
 //ping
             client.on("message", message => {
