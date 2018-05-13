@@ -48,11 +48,11 @@ const channel = member.guild.channels.find("name","welcome")
 if (member.user.bot) return;
 var Canvas = require('canvas')
 var jimp = require('jimp')
-const ctx = Canvas.getContext('2d')
+let ctx = Canvas.getContext('2d')
 const w = ['./blue.png','./gray.png','./image.png'];
         let Image = Canvas.Image,
-            canvas = new Canvas(749, 198),
-            ctx = canvas.getContext('2d');
+            canvas = new Canvas(749, 198);
+	    
         ctx.patternQuality = 'bilinear';
         ctx.filter = 'bilinear';
         ctx.antialias = 'subpixel';
