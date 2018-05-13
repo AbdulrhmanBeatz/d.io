@@ -45,7 +45,7 @@ if(message.content === '-<reset') {
 var memes = ['https://i.redd.it/mzplylyfigx01.png'];
 client.on('message', message => {
 	if(message.content.startsWith(prefix + 'meme')) {
-		message.channel.sendFile(memes[Math.floor(Math.random() * memes.lenght)])
+		message.channel.send(memes[Math.floor(Math.random() * memes.lenght)])
 }
 	  });
 
