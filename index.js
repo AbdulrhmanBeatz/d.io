@@ -49,7 +49,7 @@ client.on("message", message => {
 	if( !message.guild ) return;
 	if( !msg.startsWith( prefix + 'role' ) ) return;
 	if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
+		if(!message.member.hasPermission('SPEAK')) return message.channel.send('**You need `Manage Role` Permission**')
 		if( !args[0] ) return message.reply( '**:x: Mention someone please**' );
 		if( !args[1] ) return message.reply( '**:x: Please insert a name of tne role**' );
 		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
@@ -70,7 +70,7 @@ client.on("message", message => {
 			return	message.reply('**:white_check_mark: [ '+role1.name+' ] Was taken from members**');
 		} 	
 	} else {
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
+		if(!message.member.hasPermission('SPEAK')) return message.channel.send('**You need `Manage Role` Permission**')
 		if( !args[0] ) return message.reply( '**:x: Please select someone to give him a role**' );
 		if( !args[1] ) return message.reply( '**:x: Please select a role  to give it to [ ' + args[0] + ' ] **' );
 		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
