@@ -33,7 +33,7 @@ if(message.content.startsWith(prefix + 'watching')) {
 }
 }
 
-if(message.content === '-<back') {
+if(message.content === '-<reset') {
   client.user.setGame(prefix + `help | Work On ${client.guilds.size} Serevers`,'https://www.twitch.tv/Tornado');
 }
    if(message.content === '-<username') {
