@@ -42,6 +42,14 @@ if(message.content === '-<reset') {
    
  });
 
+client.on('message', message => {
+  let args = message.content.split(" ").slice(1).join(" ")
+  if(message.content.startsWith(prefix + 'vc2min')) {
+    message.channel.send(`**I have created [ ${args} ] channel harry up i will delete it after 2 mins**`)
+    message.guild.createChannel(args, 'voice').then(c => setTimeout(() => c.delete(),120000))
+  }
+  });
+
 var memes = ['https://i.redd.it/mzplylyfigx01.png'];
 client.on('message', message => {
 	if(message.content.startsWith(prefix + 'meme')) {
