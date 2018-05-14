@@ -2184,4 +2184,4 @@ message.channel.send(':ballot_box_with_check:**Your info was changed to \`' + ar
 
 
 
-client.login("NDI2MzUzMTU3ODA4MDYyNDY0.DcJR9g.QzvJsBkTEcKTPGe85Mo4mR4cEnw")
+client.login(process.env.BOT_TOKEN)
