@@ -194,8 +194,9 @@ if(message.content === prefix + 'set-wlc info') {
 
 .addField(`Welcome message  `, `
 
-On/Off : __${sw[message.guild.id].onoff}__
-Channel : __${sw[message.guild.id].ch}__`)
+On/Off: __${sw[message.guild.id].onoff}__
+Channel: __${sw[message.guild.id].ch}__
+Message: __${sw[message.guild.id].msk}__ `)
 
 
     .setColor(`BLUE`)
