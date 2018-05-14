@@ -143,7 +143,7 @@ client.on('guildMemberAdd', member => {
   let ch = member.guild.channels.find("name" , sw[member.guild.id].ch);
   let msk = sw[member.guild.id].msk
   if(!sw[member.guild.id]) sw[member.guild.id] = {
-  onoff: 'Off',
+  onoff: 'On',
   ch: 'Welcome',
   msk: 'Welcome Dude'
   }
