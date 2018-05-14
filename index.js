@@ -41,12 +41,12 @@ client.on('message', message => {
 
 client.on("message", message => {
   if(message.author.id === '298732816995319809') {
-  if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
 	var args = message.content.split(' ').slice(1); 
 	var msg = message.content.toLowerCase();
 	if( !message.guild ) return;
 	if( !msg.startsWith( prefix + 'role' ) ) return;
 	if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
+		 if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
 		if( !args[0] ) return message.reply( '**:x: Mention someone please**' );
 		if( !args[1] ) return message.reply( '**:x: Please insert a name of tne role**' );
 		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
