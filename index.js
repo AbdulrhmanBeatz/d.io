@@ -1842,7 +1842,7 @@ client.on("message",  message => {
 
     let ctxx = canvas.getContext('3d')
     let Images = Canvas.Image
-    fs.readFile('https://cdn.glitch.com/b6170765-1bf9-4bab-95fd-e30a3bcfd874%2Fimage.png?1524742838158', function(err, picture) { 
+    fs.readFile('./1.png', function(err, picture) { 
       if (err) throw err
       var img = new Images
       img.onload = () => {
@@ -1853,7 +1853,7 @@ client.on("message",  message => {
      
     let ctx = canvas.getContext('2d')
     let Image = Canvas.Image
-    fs.readFile('assets/image.png', function(err, picture) { 
+    fs.readFile('./1.png', function(err, picture) { 
     if (err) throw err
     var img = new Image
     img.onload = () => {
