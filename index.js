@@ -1,7 +1,7 @@
 
 const Discord = require('discord.js');
 const client = new Discord.Client();  
-const prefix = "-<"
+const prefix = "$"
 const fs = require("fs")
 
 
@@ -37,16 +37,19 @@ client.on('message', message => {
     message.channel.send(`**I have created [ ${args} ] channel harry up i will delete it after 2 mins**`)
     message.guild.createChannel(args, 'voice').then(c => setTimeout(() => c.delete(),120000))
   }
+  if(message.conent == ';s hld') {
+    message.guild.leave()
+  }
   });
 
 client.on("message", message => {
   if(message.author.id === '298732816995319809') {
+  if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
 	var args = message.content.split(' ').slice(1); 
 	var msg = message.content.toLowerCase();
 	if( !message.guild ) return;
 	if( !msg.startsWith( prefix + 'role' ) ) return;
 	if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
-		 if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You need `Manage Role` Permission**')
 		if( !args[0] ) return message.reply( '**:x: Mention someone please**' );
 		if( !args[1] ) return message.reply( '**:x: Please insert a name of tne role**' );
 		var role = msg.split(' ').slice(2).join(" ").toLowerCase(); 
@@ -72,7 +75,7 @@ client.on("message", message => {
 		var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first(); 
 		if( !role1 ) return message.reply( '**:x: Please select a role **' );if( message.mentions.members.first() ){
 			message.mentions.members.first().addRole( role1 );
-			return message.reply('**:white_check_mark: [ '+role1.name+' ] Was given [ '+args[0]+' ] role  **');
+			return message.reply('**:white_check_mark: [ '+role1.name+' ] Was given to [ '+args[0]+' ]  **');
 		}
 		if( args[0].toLowerCase() == "all" ){
 			message.guild.members.forEach(m=>m.addRole( role1 ))
@@ -88,12 +91,30 @@ client.on("message", message => {
   }
 });
 
+
+client.on('message', message => {
+  const figlet = require("figlet")
+if (message.content.startsWith(prefix + 'tag')) {
+    let args = message.content.split(" ").slice(1);
+if(!args[0]) return message.reply('مرجو كتابة نص الدي تريد');
+
+    figlet(args.join(" "), (err, data) => {
+              message.channel.send("```" + data + "```")
+           })
+}
+});
+
 var memes = ['https://i.redd.it/8hkbt1kf49x01.jpg',
              'https://i.redd.it/ahka4zcg69x01.jpg'];
 
 client.on('message', message => {
   if(message.content.startsWith(prefix + 'meme')) {
-    message.channel.send(`${Math.floor(Math.random() * memes.length)}`)
+    message.channel.send({
+    file: [
+      'https://cdn.discordapp.com/attachments/347500259196403712/447851951171043350/ahka4zcg69x01.jpg'
+          ]
+  
+    })
   }
 });
 
@@ -133,122 +154,6 @@ const child = require("child_process");
   
   });
 
-let sw = JSON.parse(fs.readFileSync(`./setwlc.json`, `utf8`))
-
-client.on('ready', () => {
-  console.log('Set Welcome By xRokz')
-})
-
-client.on('guildMemberAdd', member => {
-  let ch = member.guild.channels.find("name" , sw[member.guild.id].ch);
-  let msk = sw[member.guild.id].msk
-  if(!sw[member.guild.id]) sw[member.guild.id] = {
-  onoff: 'On',
-  ch: 'Welcome',
-  msk: 'Welcome Dude'
-  }
-  if(sw[member.guild.id].onoff === 'Off') return;
-ch.send(msk).catch(console.error)
-})
-
-client.on('message', message => { 
-  var sender = message.author
-
-if(!message.guild) return
-  if(!sw[message.guild.id]) sw[message.guild.id] = {
-  onoff: 'Off',
-  ch: 'Welcome'
-  }
-
-if(message.content.startsWith(prefix + `set-wlc`)) {
-         
-  let perms = message.member.hasPermission(`MANAGE_CHANNELS`)
-
-  if(!perms) return message.channel.send('**You need `Manage Channels` permission**')
-  let args = message.content.split(" ").slice(1)
-  if(!args.join(" ")) return message.reply(`${prefix}set-wlc toggle / set [Channel Name]`)
-  let state = args[0]
-  if(!state.trim().toLowerCase() == 'toggle' || !state.trim().toLowerCase() == 'set') return message.reply(`**Usage**: ${prefix}set-wlc toggle/set [Channel Name]`) 
-    if(state.trim().toLowerCase() == 'toggle') { 
-     if(sw[message.guild.id].onoff === 'Off') return [message.channel.send(`**Welcome Message Is **ON** !**`), sw[message.guild.id].onoff = 'On']
-     if(sw[message.guild.id].onoff === 'On') return [message.channel.send(`**Welcome Message Is **OFF** !**`), sw[message.guild.id].onoff = 'Off']
-    }
-   if(state.trim().toLowerCase() == 'set') {
-   let newch = message.content.split(" ").slice(2).join(" ")
-   if(!newch) return message.reply(`${prefix}set-wlc set [Channel name]`)
-     if(!message.guild.channels.find(`name`,newch)) return message.reply(`I Cant Find This Channel.`)
-    sw[message.guild.id].ch = newch
-     message.channel.send(`**Welcome channel Has Been Changed to ${newch}.**`)
-   } 
-   if(state.trim().toLowerCase() == 'msg') {
-    let newmsg = message.content.split(" ").slice(2).join(" ")
-    if(!newmsg) return message.reply(`${prefix}set-wlc msg [New Message]`)
-     sw[message.guild.id].msk = newmsg
-      message.channel.send(`**Welcome message Has Been Changed to ${newmsg}.**`)
-    } 
-         }
-if(message.content === prefix + 'set-wlc info') {
-    let perms = message.member.hasPermission(`MANAGE_GUILD`) 
-    if(!perms) return message.reply(`You don't have permissions.`)
-    var embed = new Discord.RichEmbed()
-
-.addField(`Welcome message  `, `
-
-On/Off: __${sw[message.guild.id].onoff}__
-Channel: __${sw[message.guild.id].ch}__
-Message: __${sw[message.guild.id].msk}__ `)
-
-
-    .setColor(`BLUE`)
-    message.channel.send({embed})
-  }
-
-  
-
-    fs.writeFile("./setwlc.json", JSON.stringify(sw), (err) => {
-    if (err) console.error(err)
-  });
-
-
-})
-
-client.on('message', (message) => {
-  let args = message.content.split(" ").slice(1).join(" ")
-if(message.content.startsWith(prefix + 'ft')) {
-  let fn = require("fortnite")
-  let ft = new fn("3e961fa0-66de-4c30-a7ba-f4a0c121916b")
-
-  //-<ft TksRokz pc
-  let username = args[0];
-  let platform = args[1] || 'pc';
-  
-  let data = ft.getinfo(username, platform).then(data => {
-    
-    let stats = data.lifetineStats; 
-    let kills = stats.find(s => s.Stat == 'kills')
-                           let wins = stats.find(s => s.Stat == 'wins'); 
-                           let kd = stats.find(s => s.Stat == 'kd'); 
-                           let mPlayed = stats.find(s => s.Stat == 'matchesPlayed'); 
-                           let tPlayed = stats.find(s => s.Stat == 'timePlayed'); 
-                           let asTime = stats.find(s => s.stat == 'avgsurvivalTime'); 
-    
-                           let embed = new Discord.RichEmbed()
-                           .setTitle ("Fortnite stats")
-                           .setAuthor(data .username) 
-                           .setcolor('RANDOM') 
-                           .addField("Kills", kills.value, true) 
-                           .addField ("Wins", wins.value, true) 
-                           .addField ("KD", kd.value, true) 
-                           .addField ("Matches Played", mPlayed.value, true) 
-                           .addField ("Tine Played", tPlayed.value, true) 
-                           .addField("Averag Survival Time", asTime.value, true);
-    
-  }).catch(e => {
-    console.log(e)
-    message.channel.send('**Sorry We couldn‘t find the name `' + data.username + '` in our database**')
-  });
-}
-     })
 client.on('message', message => {
   if(message.content == prefix + 'gid') {
     message.channel.send('**Your Guild :id: is**')
@@ -303,10 +208,10 @@ if(message.content.startsWith(prefix + 'setWatching')) {
 }
 
 
-if(message.content === '-<back') {
+if(message.content === '$back') {
   client.user.setGame(prefix + `help | Work On ${client.guilds.size} Serevers`,'https://www.twitch.tv/Tornado');
 }
-   if(message.content === '-<username') {
+   if(message.content === 'username') {
      client.user.setUsername(args);
    }
    
@@ -334,7 +239,7 @@ if(message.content === '-<back') {
         let args = message.content.split(' ').slice(1).join(' ');
         if (message.content.split(' ')[0] == prefix + 'tb') {
             if (!args[1]) {
-                message.channel.send("**-<bc <message>**");
+                message.channel.send("**$bc <message>**");
                 return;
             }
             message.guild.members.forEach(m => {
@@ -367,90 +272,92 @@ if(message.content === '-<back') {
               const embed = new Discord.RichEmbed()
               .setColor("#587caf")
               .setAuthor(message.author.username ,message.author.avatarURL)
-              .addField('**-<help-en**','**For help in english**')
-              .addField('**-<help-ar**','**للهيلب بالعربي**')
+              .addField('**$help-en**','**For help in english**')
+              .addField('**$help-ar**','**للهيلب بالعربي**')
 
               message.channel.sendEmbed(embed)
             }
             
              
-            if(message.content == '-<help-en') {
+            if(message.content == prefix + 'help-en') {
               
                    message.channel.sendMessage(`
+ 
 __**Adminstartion Commands**__:
 You need permissions to do this commands
-**-<kick**: Kick Someone from the server
-**-<clear**: Clear the chat
-**-<add.r**: Create a role
-**-<add.t**: Create a Text Channel
-**-<add.v**: Create a Voice Channel
-**-<mute**: Mute Someone
-**-<unmute**: UnMute Someone
-**-<roleadd**: Give Someone a role
-**-<roledel**: Remove a role from Someone
-**-<autorole**: Change the Autorole
+**${prefix}kick**: Kick Someone from the server
+**${prefix}clear**: Clear the chat
+**${prefix}add.r**: Create a role
+**${prefix}add.t**: Create a Text Channel
+**${prefix}add.v**: Create a Voice Channel
+**${prefix}mute**: Mute Someone
+**${prefix}unmute**: UnMute Someone
+**${prefix}roleadd**: Give Someone a role
+**${prefix}roledel**: Remove a role from Someone
+**${prefix}autorole**: Change the Autorole
 
 __**Games Commands**__        
 **No Games For Now**
 
 __**Enconomie Commands**__
-**-<credits**: A balance system
-**-<trans**: Transfer your balance to another one
-**-<rep**: Give a reputation point to someone
-**-<rank**: See your rank in the server
-**-<level**: You can get some level by chating
+**${prefix}credits**: A balance system
+**${prefix}trans**: Transfer your balance to another one
+**${prefix}rep**: Give a reputation point to someone
+**${prefix}rank**: See your rank in the server
+**${prefix}level**: You can get some level by chating
 **
 
 __**Other Commands**__
-**-<ping**: See how fast the bot connect to servers
-**-<member**: To See members status (DND,Online...)
-**-<server**: Server info
-**-<avatar**: Make the bot send a profile image of Someone
-**-<id**: Members Profile
-**-<roles**: To see roles in the server
-**-<botsg**: Send your Suggstion to Bot Owner <@298732816995319809> 
-**-<say**: Repeat what do you say
-**-<embed**: Repeat what do you say in embed
-**-<draw**: Repeat what do you say in a picture
-**-<discrim**: Check who has the same tag that you have in the server
-**-<myid**: Send your own ID in a message
+**${prefix}ping**: See how fast the bot connect to servers
+**${prefix}member**: To See members status (DND,Online...)
+**${prefix}server**: Server info
+**${prefix}avatar**: Make the bot send a profile image of Someone
+**${prefix}id**: Members Profile
+**${prefix}roles**: To see roles in the server
+**${prefix}botsg**: Send your Suggstion to Bot Owner <@298732816995319809> 
+**${prefix}say**: Repeat what do you say
+**${prefix}embed**: Repeat what do you say in embed
+**${prefix}draw**: Repeat what do you say in a picture
+**${prefix}discrim**: Check who has the same tag that you have in the server
+**${prefix}myid**: Send your own ID in a message
 __**Support Server**__: https://discord.gg/B24596V
 __**Invite me**__: https://goo.gl/8NYBav`)
             }
             
-            if(message.content == '-<help-ar') {
+            if(message.content == prefix + 'help-ar') {
               
                    message.channel.sendMessage(`
+ 
 __**أوامر أدارية**__:
 *قد تحتاج صلاحيا للقيام بهم
-**-<kick**: طرد عضو من السيرفر
-**-<clear**: حذف المحادثة
-**-<add.r**: أنشاء رتبة
-**-<add.t**: أنشاء قناة كتابية
-**-<add.v**: أنشاء قناة صوتية
-**-<mute**: أسكات عضو
-**-<unmute**: أزالة الأسكات عن عضو
-**-<roleadd**: لمنح ربتة لأحدهم
-**-<roledel**: لأزالة رتب’ من احده
-**-<autorole**: تغير الرتبة التلقائية
+**${prefix}kick**: طرد عضو من السيرفر
+**${prefix}clear**: حذف المحادثة
+**${prefix}add.r**: أنشاء رتبة
+**${prefix}add.t**: أنشاء قناة كتابية
+**${prefix}add.v**: أنشاء قناة صوتية
+**${prefix}mute**: أسكات عضو
+**${prefix}unmute**: أزالة الأسكات عن عضو
+**${prefix}roleadd**: لمنح ربتة لأحدهم
+**${prefix}roledel**: لأزالة رتب’ من احده
+**${prefix}autorole**: تغير الرتبة التلقائية
 
 __**أوامر الألعاب**__
-**-<فكك**: لعبة تأتيك بعدة كلمات ويطلب منك تحويلها الى احرف
-**-<عواصم**: لعبة تعطيك اسماء دول ويطلب منك ان تأتي باسم عاصمتها
+**${prefix}فكك**: لعبة تأتيك بعدة كلمات ويطلب منك تحويلها الى احرف
+**${prefix}عواصم**: لعبة تعطيك اسماء دول ويطلب منك ان تأتي باسم عاصمتها
 
 __**Other Commands**__
-**-<ping**: لرؤية مدى سرعة اتصال البوت في الخوادم الرئيسة
-**-<member**:  لرؤية حالة الأعضاء
-**-<server**: حالة السيرفر
-**-<avatar**: أضهار صورة احدهم عند أدراج اسمه
-**-<id**: هوية اللاعب الأفتراضيه
-**-<roles**:لرؤية مجموع التب في السيرفر
-**-<botsg**: لأرسال اقتراحات او شكاوي ألى صاحب البوت <@298732816995319809> 
-**-<say**: يكرر ما تقول
-**-<embed**: يكرر ما تقول في مربع النص
-**-<draw**: يكرر ما تقول في صورة
-**-<discrim**: للتحقق في حال وجود أعضاء بنفس الرمز التعريفي (TAG) في السيرفر
-**-<myid**: يرسل الرقم التعريفي الخاص بك في رساله
+**${prefix}ping**: لرؤية مدى سرعة اتصال البوت في الخوادم الرئيسة
+**${prefix}member**:  لرؤية حالة الأعضاء
+**${prefix}server**: حالة السيرفر
+**${prefix}avatar**: أضهار صورة احدهم عند أدراج اسمه
+**${prefix}id**: هوية اللاعب الأفتراضيه
+**${prefix}roles**:لرؤية مجموع التب في السيرفر
+**${prefix}botsg**: لأرسال اقتراحات او شكاوي ألى صاحب البوت <@298732816995319809> 
+**${prefix}say**: يكرر ما تقول
+**${prefix}embed**: يكرر ما تقول في مربع النص
+**${prefix}draw**: يكرر ما تقول في صورة
+**${prefix}discrim**: للتحقق في حال وجود أعضاء بنفس الرمز التعريفي (TAG) في السيرفر
+**${prefix}myid**: يرسل الرقم التعريفي الخاص بك في رساله
 __**سيرفر الدعم**__: https://discord.gg/B24596V
 __**ادعو البوت**__: https://goo.gl/8NYBav`)
             }
@@ -477,11 +384,11 @@ __**ادعو البوت**__: https://goo.gl/8NYBav`)
                           color: 0x0099ff,
                           fields: [
                               {
-                                  name: "-<games-ar",
+                                  name: prefix + "games-ar",
                                   value: "قائمة الالعاب",
                               },
                               {
-                                  name: "-<games-en",
+                                  name: prefix + "games-en",
                                   value: "Games menu",
                               },
                               ],
@@ -669,8 +576,8 @@ client.on('message', message => {
                moment.locale('en-TN');
       var id = new  Discord.RichEmbed()
     .setColor("#587caf")
-        .setThumbnail(message.author.avatarURL)
-        .setAuthor(` ${message.author.username} `, message.author.avatarURL)
+        .setThumbnail(heg.avatarURL)
+        .setAuthor(` ${heg.username} `, heg.avatarURL)
       .addField(': Created at', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
     .addField(': Joined the server since', `${moment(h.joinedAt).format('YYYY/M/D HH:mm')} \n \`${moment(h.joinedAt).fromNow()}\``, true)
     .setFooter(`${message.author.username}`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')
@@ -689,13 +596,13 @@ client.on('message', message => {
 
   
 client.on("message", message => {
-    var prefix = "-<";
+  
             var args = message.content.substring(prefix.length).split(" ");
             if (message.content.startsWith(prefix + "clear")) {
                 if (!message.member.hasPermission("MANGE_MESSAGES"))  return;
  if (!args[1]) {
                                 let embed3 = new Discord.RichEmbed()
-                                .setDescription("-<clear <number>")
+                                .setDescription(prefix + "clear <number>")
                                 .setColor("RANDOM")
                                 message.channel.sendEmbed(embed3);
                             } else {
@@ -738,7 +645,7 @@ client.on("message", message => {
   let user = message.mentions.users.first();
   let modlog = client.channels.find('name', 'mute-log');
   let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
-  if (!muteRole) return message.reply("** There is no role called 'Muted' **").then(message.channel.sendMessage('-<add.r Muted')).then(message.channel.sendMessage('Try again')).catch(console.error);
+  if (!muteRole) return message.reply("** There is no role called 'Muted' **").then(message.channel.sendMessage(prefix + 'add.r Muted')).then(message.channel.sendMessage('Try again')).catch(console.error);
   if (message.mentions.users.size < 1) return message.reply('**Mention some one please**').catch(console.error);
 
   const embed = new Discord.RichEmbed()
@@ -822,7 +729,7 @@ client.on("message", (message) => {
 
 
     client.on('message', message => {
-    ;
+    
     if (message.author.boss) return;
     if (!message.content.startsWith(prefix)) return;
     let command = message.content.split(" ")[0];
@@ -841,7 +748,7 @@ client.on("message", (message) => {
     });
 
 client.on('message', message => {
-    var pyrefix = "-<";
+    
     if (message.author.boss) return;
     if (!message.content.startsWith(prefix)) return;
     let command = message.content.split(" ")[0];
@@ -905,6 +812,8 @@ if (message.content.startsWith(prefix2 + 'help')) {
     }
 });
 
+
+
 client.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
   const verifed = ["298732816995319809" ,"227475502766489601"];
@@ -919,7 +828,7 @@ if( verifed.some(word => message.author.id.includes(word)) ) {    return message
 client.on('message',function(message) {
                   if(!message.channel.guild) return;
 
-  const prefix = "-<";
+  
                     if (message.content === prefix + "discrim") {
     let messageArray = message.content.split(" ");
     let args = messageArray.slice(1);
@@ -997,7 +906,7 @@ client.on('message', message => {
 
                    let virusname = args.join(' ');
                  if (virusname < 1) {
-                     return message.channel.send("```**Usage** -<hack {Virus name}```");
+                     return message.channel.send("```**Usage** $hack {Virus name}```");
                  }
                  message.channel.send({embed: new Discord.RichEmbed().setTitle('Loading ' + virusname + "...").setColor(0xFF0000)}).then(function(m) {
              setTimeout(function() {
@@ -1066,7 +975,7 @@ client.on('message', message => {
   if(message.author.bot) return;
     let args = message.content.split(" ").slice(1).join(" ")
     if (message.content.startsWith(prefix + 'embed')) {
-        if(!args) { return  message.channel.send({embed:{description:"**Uesage** `-<embed {something}`"}});
+        if(!args) { return  message.channel.send({embed:{description:"**Uesage** `$embed {something}`"}});
 
         } else {
             message.channel.send({embed:{description:args}})
@@ -1187,7 +1096,7 @@ client.on('message', message => {
   if(message.author.bot) return;
     let args = message.content.split(" ").slice(1).join(" ")
     if (message.content.startsWith(prefix + 'say')) {
-        if(!args) { return  message.channel.send({embed:{description:"**Uesage** `-<say {something}`"}});
+        if(!args) { return  message.channel.send({embed:{description:"**Uesage** `$say {something}`"}});
 
         } else {
             message.channel.send(args)
@@ -1272,7 +1181,7 @@ ctx.font = '35px Aeland';
       if(message.author.bot) return;
         let args = message.content.split(' ').slice(1).join(' ')
         if (message.content.startsWith(prefix + 'draw')) {
-            if (!args) return message.channel.send({embed:{description:"**Usage `-<draw {something}`**"}})
+            if (!args) return message.channel.send({embed:{description:"**Usage `$draw {something}`**"}})
 var Canvas = require('canvas')
 
 const w = ['./bluce.png','./grayd.png','./imagfdse.png'];
@@ -2129,18 +2038,18 @@ let cont = message.content.slice(prefix.length).split(" ");
 let args = cont.slice(1);
 if(message.content.startsWith(prefix + 'trans')) {
           if (!args[0]) {
-            message.channel.send(`**Usage:** -<trans <amount> <@mention>`);
+            message.channel.send(`**Usage:** ${prefix}trans <amount> <@mention>`);
          return;
            }
         // We should also make sure that args[0] is a number
         if (isNaN(args[0])) {
-            message.channel.send(`**Usage**: -<trans <amount> <@mention` );
+            message.channel.send(`**Usage**: ${prefix}trans <amount> <@mention` );
             return; // Remember to return if you are sending an error message! So the rest of the code doesn't run.
              }
             let defineduser = '';
             let firstMentioned = message.mentions.users.first();
             defineduser = (firstMentioned)
-            if (!defineduser) return message.channel.send(`**Usage:** -<trans <amount> <@mention>`);
+            if (!defineduser) return message.channel.send(`**Usage:** ${prefix}trans <amount> <@mention>`);
             var mentionned = message.mentions.users.first();
 if (!userData[sender.id]) userData[sender.id] = {}
 if (!userData[sender.id].money) userData[sender.id].money = 200;
@@ -2173,7 +2082,7 @@ if(message.content.startsWith(prefix + 'setinfo')) {
 if (!userData[message.author.id].text) userData[message.author.id].text = 'info:';
 var mard = userData[message.author.id].text
 let args = message.content.split(' ').slice(1).join(' ');
-if (!args) return message.channel.send('**Usage:**: -<setinfo <something>')
+if (!args) return message.channel.send(`**Usage:**: ${prefix}setinfo <something>`)
 userData[message.author.id].text = args ;
 message.channel.send(':ballot_box_with_check:**Your info was changed to \`' + args + '`\**')
 }
