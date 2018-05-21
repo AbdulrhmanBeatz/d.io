@@ -212,7 +212,7 @@ if(message.content === '$back') {
   client.user.setGame(prefix + `help | Work On ${client.guilds.size} Serevers`,'https://www.twitch.tv/Tornado');
 }
    if(message.content === 'username') {
-     client.user.setUsername(args);
+     client.user.setUsername("Equalizer");
    }
    
  });
