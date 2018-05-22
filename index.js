@@ -189,7 +189,7 @@ if(message.content.startsWith(prefix + 'setGame')) {
 }
 }
 if(message.content.startsWith(prefix + 'setStreaming')) {
-    if(message.author.id != '298732816995319809') return;
+    if(message.author.id != '298732816995319809' || '317604627132579841') return;
     else {
     client.user.setActivity(args.join(' '), {type: 'STREAMING', url:'https://www.twitch.com/tornado'});
 }
