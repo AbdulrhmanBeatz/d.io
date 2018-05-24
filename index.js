@@ -1092,18 +1092,6 @@ client.on('guildMemberAdd', member => {
      channel.send({embed:embed});
 });
 
-client.on('message', message => {
-  if(message.author.bot) return;
-    let args = message.content.split(" ").slice(1).join(" ")
-    if (message.content.startsWith(prefix + 'say')) {
-        if(!args) { return  message.channel.send({embed:{description:"**Uesage** `$say {something}`"}});
-
-        } else {
-            message.channel.send(args)
-        }
-    }
-});
-
 client.on('guildMemberAdd', member => {
 
 const channel = member.guild.channels.find("name","welcome")
