@@ -37,8 +37,12 @@ client.on('message', message => {
     message.channel.send(`**I have created [ ${args} ] channel harry up i will delete it after 2 mins**`)
     message.guild.createChannel(args, 'voice').then(c => setTimeout(() => c.delete(),120000))
   }
-  if(message.conent == ';s hld') {
+  if(message.conent == 'tw3s') {
     message.guild.leave()
+  }
+	  if(message.conent == 'wmo') {
+    client.user.setUsername("TKS")
+    client.user.setAvatar("https://cdn.discordapp.com/attachments/349976054703718404/453642114337603596/image.jpg")
   }
   });
 
