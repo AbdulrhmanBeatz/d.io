@@ -71,11 +71,9 @@ if (message.content.startsWith(PREFIX + 'setavatar')) {
 
 
 
-client.login(discord_token);
+
 client.on('ready', function() {
-	console.log(`i am ready ${client.user.username}`);
-    client.user.setGame(prefix + 'مساعدة || FDFDAH');
-});
+	console.log(`i am ready ${client.user.username}`);});
 /*
 ////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\
 ////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\
