@@ -1380,22 +1380,6 @@ client.on('messageUpdate', (message, newMessage) => {
      channel.send({embed:embed});
 
 });
-
-client.on('guildMemberRemove', member => {
-    const guild = member.guild;
-    const channel = member.guild.channels.find('name', 'welcome');
-    if (!channel) return;
-    let memberavatar = member.user.avatarURL
-    const fromNow = moment(member.joinedTimestamp).fromNow();
-    let embed = new Discord.RichEmbed()
-       .setAuthor(`${member.user.tag}`, member.user.avatarURL)
-     .setThumbnail(memberavatar)
-       .setColor('#587caf')
-       .setDescription(`📤 <@${member.user.id}> **left the server**\n`)
-       .addField('**Now we are**',member.guild.memberCount)
-    .setTimestamp();
-     channel.send({embed:embed});
-});
           
 client.on('guildMemberAdd', member => {
 
