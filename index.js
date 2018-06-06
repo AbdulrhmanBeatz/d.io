@@ -3,8 +3,8 @@
 const fs = require("fs")
 const prefix = "$";
 const request = require("request")
-const Dicrord = require('discord.js');
-const client = new Discord.CLient()
+const Discord = require('discord.js');
+const client = new Discord.Client()
 
 
 
