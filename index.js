@@ -1,5 +1,5 @@
 
-
+// ssاذا انت تقرا ذي فأنت كيوت
 const fs = require("fs")
 const prefix = "$";
 const request = require("request")
